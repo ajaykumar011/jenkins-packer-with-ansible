@@ -1,6 +1,6 @@
 ---
-- name: ensure ntpd is running and enabled
-  service: name=ntpd enabled=yes state=started
+# - name: ensure ntpd is running and enabled
+#   service: name=ntpd enabled=yes state=started
 
 - name: ensure uneccessary services are stopped and disabled
   service: name={{ item }} enabled=no state=stopped
