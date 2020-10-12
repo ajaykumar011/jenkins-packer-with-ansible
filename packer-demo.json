@@ -45,7 +45,9 @@
             "type": "shell",
             "inline": [
                 "yum -y install python-pip",
-                "pip install --user ansible"
+                "pip install --user ansible",
+                "ansible --version",
+                "printenv"
             ]
         },
         {
