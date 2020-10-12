@@ -7,8 +7,6 @@
   with_items:
     - irqbalance
     - lvm2-monitor
-    - netfs
-    - atd
     - mdmonitor
 
 - name: ensure custom motd is present
