@@ -45,7 +45,7 @@
             "type": "shell",
             "inline": [
                 "yum -y install python-pip",
-                "pip install ansible"
+                "pip install --user ansible"
             ]
         },
         {
