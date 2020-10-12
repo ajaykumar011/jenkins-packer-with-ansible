@@ -44,7 +44,7 @@
             "execute_command": "echo 'ec2-user' | {{.Vars}} sudo -S -E bash '{{.Path}}'",
             "type": "shell",
             "inline": [
-                "yum install -y python26-pip",
+                "yum -y install python-pip",
                 "pip install ansible"
             ]
         },
