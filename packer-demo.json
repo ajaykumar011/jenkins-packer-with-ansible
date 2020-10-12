@@ -38,8 +38,7 @@
             "inline": [
                 "hostname -f",
                 "yum -y update"
-            ],
-            "expect_disconnect": true
+            ]
         },
         {
             "execute_command": "echo 'ec2-user' | {{.Vars}} sudo -S -E bash '{{.Path}}'",
