@@ -1,15 +1,19 @@
 {
+    "variables": {
+        "aws_access_key": "",
+        "aws_secret_key": ""
+    },
     "builders": [
         {
             "type": "amazon-ebs",
-            "access_key":  "{{user `aws_access_key_id`}}",
-            "secret_key":  "{{user `aws_secret_key`}}",
-            "region": "eu-west-1",
-            "source_ami": "ami-d834aba1",
+            "access_key": "{{user `aws_access_key_id`}}",
+            "secret_key": "{{user `aws_secret_key`}}",
+            "region": "us-east-1",
+            "source_ami": "ami-0947d2ba12ee1ff75",
             "ami_virtualization_type": "hvm",
-            "instance_type": "t2.small",
-            "vpc_id": "vpc-b1f208d4",
-            "subnet_id": "subnet-57a10c32",
+            "instance_type": "t2.micro",
+            "vpc_id": "vpc-7eb5ae04",
+            "subnet_id": "subnet-d6ed2689",
             "ssh_username": "ec2-user",
             "ssh_timeout": "3m",
             "ssh_pty": "true",
@@ -31,13 +35,19 @@
         {
             "execute_command": "echo 'ec2-user' | {{.Vars}} sudo -S -E bash '{{.Path}}'",
             "type": "shell",
-            "inline": ["yum -y update", "reboot && sleep 60"],
+            "inline": [
+                "yum -y update",
+                "reboot && sleep 60"
+            ],
             "expect_disconnect": true
         },
         {
             "execute_command": "echo 'ec2-user' | {{.Vars}} sudo -S -E bash '{{.Path}}'",
             "type": "shell",
-            "inline": [ "yum install -y python26-pip", "pip install ansible" ]
+            "inline": [
+                "yum install -y python26-pip",
+                "pip install ansible"
+            ]
         },
         {
             "type": "ansible-local",
@@ -47,11 +57,10 @@
         {
             "execute_command": "echo 'ec2-user' | {{.Vars}} sudo -S -E bash '{{.Path}}'",
             "type": "shell",
-            "inline": ["rm -rf /tmp/*", "rm -f /tmp/.ansible-lock.*"]
+            "inline": [
+                "rm -rf /tmp/*",
+                "rm -f /tmp/.ansible-lock.*"
+            ]
         }
-    ],
-    "variables": {
-        "aws_access_key_id": "{{env `PACKER_AWS_ACCESS_KEY_ID`}}",
-        "aws_secret_key": "{{env `PACKER_AWS_SECRET_ACCESS_KEY`}}"
-    }
+    ]
 }

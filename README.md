@@ -12,19 +12,49 @@
 ## Setup
 
 * Git clone this project:
-    `https://github.com/rosstimson/awsne-packer.git`
-* Install [Packer](http://www.packer.io) on your local machine.  If you're on a
-  Mac and use Homebrew then the easiest way is to use
-  [Cask](http://caskroom.io):
-    - `brew install caskroom/cask/brew-cask`
-    - `brew cask install packer`
+    Original: `https://github.com/rosstimson/awsne-packer.git`
+    Working : 'https://github.com/ajaykumar011/jenkins-packer-with-ansible.git'
+
+# install terraform
+wget -q https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip \
+&& unzip -o terraform_${TERRAFORM_VERSION}_linux_amd64.zip -d /usr/local/bin \
+&& rm terraform_${TERRAFORM_VERSION}_linux_amd64.zip
+
+# install packer
+
+# Download Location (method-1 - used in this example) :
+# https://www.packer.io/downloads.html
+
+cd /usr/local/bin
+wget -q https://releases.hashicorp.com/packer/0.10.2/packer_0.10.2_linux_amd64.zip
+unzip packer_0.10.2_linux_amd64.zip
+packer --version
+
+#Method -2 (Ubuntu/Debian)
+
+curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
+sudo apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
+sudo apt-get update && sudo apt-get install packer
+
+
+#Method -2 (Amazon Linux 2)
+
+sudo yum install -y yum-utils
+sudo yum-config-manager --add-repo https://rpm.releases.hashicorp.com/AmazonLinux/hashicorp.repo
+sudo yum -y install packer
+
+# clean up
+apt-get clean
+rm terraform_${TERRAFORM_VERSION}_linux_amd64.zip
+rm packer_0.10.2_linux_amd64.zip
+
 
 ### AWS Credentials
 
 AWS credentials needed should be stored in the following environment variables:
 
-* `PACKER_AWS_ACCESS_KEY_ID`
-* `PACKER_AWS_SECRET_ACCESS_KEY`
+* `AWS_ACCESS_KEY_ID`
+* `AWS_SECRET_ACCESS_KEY`
 
 An example IAM policy for the Packer user is supplied:
 `packer-iam-policy.example.json`
